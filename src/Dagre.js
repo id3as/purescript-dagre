@@ -74,10 +74,10 @@ exports.layoutInternal = function(show) {
                 });
 
                 var result =
-                    { graphWidth: g.width,
-                    graphHeight: g.height,
-                    nodes: nodesRes,
-                    edges: edgesRes
+                    { graphWidth: g.graph().width,
+                      graphHeight: g.graph().height,
+                      nodes: nodesRes,
+                      edges: edgesRes
                     };
 
 
