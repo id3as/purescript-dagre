@@ -130,6 +130,8 @@ type LayoutResult =
   , graphWidth :: Number
   , nodes :: Array { nodeId :: NodeId
                    , position :: Point
+                   , width :: Number
+                   , height :: Number
                    }
   , edges :: Array { edge :: Edge
                    , labelCenter :: Point

@@ -52,7 +52,9 @@ exports.layoutInternal = function(show) {
                         { nodeId: nodeId,
                         position: { x: label.x,
                                     y: label.y
-                                    }
+                                    },
+                          width: label.width,
+                          height: label.height
                         };
                     return nodeResult;
                 });
