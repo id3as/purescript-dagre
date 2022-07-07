@@ -1,14 +1,14 @@
 "use strict";
 
-var dagre = require("dagre");
-var lodash = require("lodash");
+import { graphlib, layout } from "dagre";
+import { cloneDeep } from "lodash";
 
-exports.layoutInternal = function(show) {
+export function layoutInternal(show) {
     return function(config) {
         return function(nodes) {
             return function(edges) {
                 /**** Setup graph ******/
-                var g = new dagre.graphlib.Graph();
+                var g = new graphlib.Graph();
                 g.setGraph({ rankdir: show.rankDirection(config.rankDirection),
                              align: show.align(config.align),
                              nodesep: config.nodeSep,
@@ -23,12 +23,12 @@ exports.layoutInternal = function(show) {
 
                 nodes.map(function(nodeTuple) {
                     var nodeId = nodeTuple.value0;
-                    var nodeLabel = lodash.cloneDeep(nodeTuple.value1);
+                    var nodeLabel = cloneDeep(nodeTuple.value1);
                     g.setNode(nodeId, nodeLabel);
                 });
 
                 edges.map(function(edgeTuple) {
-                    var edge = lodash.cloneDeep(edgeTuple.value0);
+                    var edge = cloneDeep(edgeTuple.value0);
                     var l = edgeTuple.value1;
                     var edgeLabel = { minlen: l.minLength,
                                     weight: l.weight,
@@ -42,7 +42,7 @@ exports.layoutInternal = function(show) {
 
 
                 /**** Run layout ********/
-                dagre.layout(g);
+                layout(g);
 
 
                 /**** Get layout result into expected format ****/
@@ -85,4 +85,4 @@ exports.layoutInternal = function(show) {
             };
         };
     };
-};
+}
