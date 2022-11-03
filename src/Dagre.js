@@ -1,7 +1,11 @@
 "use strict";
 
 import { graphlib, layout } from "dagre";
-import { cloneDeep } from "lodash";
+
+// The naive import of lodash as below does not tree-shake, as this is from a non-ESM bundle
+// import { cloneDeep } from "lodash"
+
+import cloneDeep from "lodash/cloneDeep";
 
 export function layoutInternal(show) {
     return function(config) {
