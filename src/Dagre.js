@@ -52,6 +52,8 @@ export function layoutInternal(show) {
                 /**** Get layout result into expected format ****/
                 var nodesRes = g.nodes().map(function(nodeId) {
                     var label = g.node(nodeId);
+                    // Crash observed where this node function returns undefined, that probably means a bad graph layout but the result of crashing the entire program is not super useful.
+                    if (!label) return;
                     var nodeResult =
                         { nodeId: nodeId,
                         position: { x: label.x,
@@ -61,10 +63,11 @@ export function layoutInternal(show) {
                           height: label.height
                         };
                     return nodeResult;
-                });
+                }).filter(x => x !== undefined);
 
                 var edgesRes = g.edges().map(function(edge) {
                     var label = g.edge(edge.v, edge.w);
+                    if (!label) return;
                     var edgeResult =
                         { edge: { from: edge.v,
                                 to: edge.w
@@ -75,7 +78,7 @@ export function layoutInternal(show) {
                         controlPoints: label.points
                         };
                     return edgeResult;
-                });
+                }).filter(x => x !== undefined);
 
                 var result =
                     { graphWidth: g.graph().width,
